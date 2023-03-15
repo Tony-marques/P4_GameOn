@@ -1,6 +1,4 @@
-// Regex
-const standardRegex = new RegExp(/^[a-zA-Z-]{2,}/);
-const emailRegex = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
+import * as utils from "./utils.js";
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
@@ -46,11 +44,17 @@ form.addEventListener("submit", (e) => {
 });
 
 // FUNCTIONS
-// launch modal form
+
+/**
+ * @description launch modal form
+ */
 function launchModal() {
    modalbg.style.display = "block";
 }
 
+/**
+ * @description check if form is correctly completed
+ */
 function checkForm() {
    let isCheckedForm = true;
 
@@ -67,7 +71,7 @@ function checkForm() {
    }
 
    if (!cgv.checked) {
-      cgv.parentElement.dataset.error = "Veuillez accepter les conditions";
+      cgv.parentElement.dataset.error = utils.cgvErrorMessage;
       cgv.parentElement.setAttribute("data-error-visible", "true");
       isCheckedForm = false;
    }
@@ -77,29 +81,34 @@ function checkForm() {
    }
 }
 
+/**
+ *
+ * @param {*} input
+ * @description check if input field is correctly completed
+ * @returns {boolean}
+ */
 function checkInput(input) {
    switch (input.id) {
       case "firstname":
-         return standardRegex.test(input.value);
-         break;
+         return utils.standardRegex.test(input.value);
       case "lastname":
-         return standardRegex.test(input.value);
-         break;
+         return utils.standardRegex.test(input.value);
       case "email":
-         return emailRegex.test(input.value);
-         break;
+         return utils.emailRegex.test(input.value);
       case "birthdate":
-         return input.value != "" ? true : false;
-         break;
+         return !!input.value;
       case "quantity":
          return parseInt(input.value);
-         break;
       default:
          return false;
    }
 }
 
-// Check the city input
+/**
+ *
+ * @description check city input
+ * @returns {boolean}
+ */
 function checkRadio() {
    for (let input of inputsRadio) {
       if (input.checked) {
@@ -109,44 +118,48 @@ function checkRadio() {
    return false;
 }
 
-// Display error message for first 5 input
+/**
+ *
+ * @param {*} input
+ * @description Display error message for first 5 input
+ * @returns {HTMLElement}
+ */
 function errorMsgInput(input) {
    input.closest(".formData").setAttribute("data-error-visible", true);
    switch (input.id) {
       case "firstname":
-         input.closest(".formData").dataset.error =
-            "Merci de renseigner votre prénom";
+         input.closest(".formData").dataset.error = utils.firstNameErrorMessage;
          break;
       case "lastname":
-         input.closest(".formData").dataset.error =
-            "Merci de renseigner votre nom";
+         input.closest(".formData").dataset.error = utils.lastNameErrorMessage;
          break;
       case "email":
-         input.closest(".formData").dataset.error =
-            "Merci de renseigner votre émail";
+         input.closest(".formData").dataset.error = utils.emailErrorMessage;
          break;
       case "birthdate":
-         input.closest(".formData").dataset.error =
-            "Merci de renseigner une date";
+         input.closest(".formData").dataset.error = utils.dateErrorMessage;
          break;
       case "quantity":
-         input.closest(".formData").dataset.error =
-            "Merci de renseigner une quantité";
+         input.closest(".formData").dataset.error = utils.quantityErrorMessage;
          break;
       default:
          return "";
    }
 }
 
-// Display error message for city input
+/**
+ * @description Display error message for city input
+ */
 function errorMsgCity() {
    const radioContainer =
       document.querySelector("input[type=radio]").parentElement;
-   radioContainer.dataset.error = "Veuillez selectionner une ville";
+   radioContainer.dataset.error = utils.cityErrorMessage;
    radioContainer.setAttribute("data-error-visible", "true");
 }
 
-// reset all error message input
+/**
+ * @description reset all error message input
+ */
 function errorMsgReset() {
    const inputs = document.querySelectorAll("input");
    inputs.forEach((input) => {
@@ -156,15 +169,14 @@ function errorMsgReset() {
    });
 }
 
-// page confirmation
+/**
+ * @description if form is correctly completed, display page validation
+ */
 function pageValidation() {
    modalBody.style.display = "none";
    const div = document.createElement("div");
    div.classList.add("validation");
-   div.innerHTML = `
-      <p>Merci ! Votre réservation a été reçue !</p>
-      <button id="return">Revenir à l'accueil</button>
-  `;
+   div.innerHTML = utils.pageValidationMessage;
    modalContent.appendChild(div);
    document.querySelector("#return").addEventListener("click", () => {
       modalBody.style.display = "block";

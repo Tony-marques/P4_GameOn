@@ -1,6 +1,12 @@
-# Projet GameOn
-1. Forkez ce repo ;
-2. Il est conseillé d'utiliser VisualStudio Code et vous pouvez utiliser Docker, mais ce n'est pas obligatoire ;
-3. Il n'y a aucune dépendance ;
-4. Vous ne devez utiliser que du CSS personnalisé et du JavaScript pur, sans jQuery, Bootstrap ou autre librairie.
 # P4_GameOn
+
+Ce projet a été réalisé uniquement en CSS et vanilla JavaScript
+
+## Voici la composition du projet:
+
+-  Un fichier modal.js contenant toutes les fonctionnalités du site.
+-  Un fichier utils.js contenant l'ensemble des strings injectés dans le HTML ainsi que les regex
+-  Un fichier modal.css pour l'ensemble du CSS du site
+-  Un fichier index.html
+-  Un dossier avec les fonts
+-  Deux images png
