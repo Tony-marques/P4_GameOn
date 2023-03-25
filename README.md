@@ -1,6 +1,6 @@
 # P4_GameOn
 
-Ce projet a été réalisé uniquement en CSS et vanilla JavaScript
+Ce projet a été réalisé uniquement en CSS et vanilla JavaScript.
 
 ## Voici la composition du projet:
 
